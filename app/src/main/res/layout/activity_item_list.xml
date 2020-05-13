@@ -44,15 +44,6 @@
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@android:drawable/ic_dialog_email" />
 
-    <TextView
-        android:id="@+id/debug_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|start"
-        tools:text="Debug goes here"
-        android:textColor="@android:color/black"
-        />
-
     <ProgressBar
         android:id="@+id/progress_bar"
         android:layout_width="wrap_content"

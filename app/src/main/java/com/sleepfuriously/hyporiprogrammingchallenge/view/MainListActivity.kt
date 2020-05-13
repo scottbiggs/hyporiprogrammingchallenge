@@ -39,9 +39,6 @@ class MainListActivity : AppCompatActivity() {
     //  widgets
     //------------------------------
 
-    /** debug messages go here */
-    private lateinit var mDebugTv: TextView
-
     /** display for to users that app is waiting on something */
     private lateinit var mProgressBar: ProgressBar
 
@@ -89,7 +86,6 @@ class MainListActivity : AppCompatActivity() {
         }
 
         // a couple of widgets
-        mDebugTv = findViewById(R.id.debug_tv)
         mProgressBar = findViewById(R.id.progress_bar)
     }
 
@@ -139,10 +135,6 @@ class MainListActivity : AppCompatActivity() {
 
         turnOnWaitingUI()
         Presenter.requestMovieList(applicationContext) { movies ->
-            // display this text once the movies happen.  todo: remove this reference
-            @SuppressLint("SetTextI18n")
-            mDebugTv.text = "I promise to display ${movies?.size} movies next time"
-
             turnOffWaitingUI()
             if (movies != null) {
                 setupRecyclerView(item_list, movies)
