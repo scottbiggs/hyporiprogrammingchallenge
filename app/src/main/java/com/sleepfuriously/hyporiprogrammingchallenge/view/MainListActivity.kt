@@ -1,5 +1,6 @@
 package com.sleepfuriously.hyporiprogrammingchallenge.view
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -31,7 +32,8 @@ class MainListActivity : AppCompatActivity() {
     //  constants
     //------------------------------
 
-    val TAG = "MainListActivity"
+    @Suppress("PrivatePropertyName")
+    private val TAG = "MainListActivity"
 
     //------------------------------
     //  widgets
@@ -140,6 +142,7 @@ class MainListActivity : AppCompatActivity() {
         turnOnWaitingUI()
         Presenter.requestMovieList(applicationContext) { movies ->
             // display this text once the movies happen.  todo: remove this reference
+            @SuppressLint("SetTextI18n")
             mDebugTv.text = "I promise to display ${movies?.size} movies next time"
 
             turnOffWaitingUI()

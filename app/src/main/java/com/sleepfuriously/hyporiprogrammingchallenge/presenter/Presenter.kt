@@ -14,7 +14,7 @@ import com.sleepfuriously.hyporiprogrammingchallenge.model.MovieRequester
 
 object Presenter {
 
-    val TAG = "Presenter"
+    private const val TAG = "Presenter"
 
 
     /**

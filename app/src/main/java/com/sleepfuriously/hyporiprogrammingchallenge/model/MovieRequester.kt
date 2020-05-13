@@ -5,14 +5,9 @@ import android.util.Log
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
-import com.android.volley.VolleyError
-import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
-import org.json.JSONArray
 import org.json.JSONException
-import org.json.JSONObject
-import java.util.ArrayList
 
 /**
  * Use this to fetch movie data
@@ -24,8 +19,8 @@ object MovieRequester {
     //  constants
     //---------------------------------
 
-    val TAG = "MovieRequester"
-    val MOVIELIST_URL = "https://swapi.dev/api/films/"
+    private const val TAG = "MovieRequester"
+    private const val MOVIELIST_URL = "https://swapi.dev/api/films/"
 
     //---------------------------------
     //  data
