@@ -8,15 +8,15 @@ import android.view.ViewGroup
 import com.sleepfuriously.hyporiprogrammingchallenge.R
 import com.sleepfuriously.hyporiprogrammingchallenge.dummy.DummyContent
 import kotlinx.android.synthetic.main.activity_item_detail.*
-import kotlinx.android.synthetic.main.item_detail.view.*
+import kotlinx.android.synthetic.main.movie_detail.view.*
 
 /**
- * A fragment representing a single Item detail screen.
+ * A fragment representing detail of a single movie.
  * This fragment is either contained in a [MainListActivity]
  * in two-pane mode (on tablets) or a [ItemDetailActivity]
  * on handsets.
  */
-class ItemDetailFragment : Fragment() {
+class MovieDetailFragment : Fragment() {
 
     /**
      * The dummy content this fragment is presenting.
@@ -38,10 +38,11 @@ class ItemDetailFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val rootView = inflater.inflate(R.layout.item_detail, container, false)
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
+        ): View? {
+
+        val rootView = inflater.inflate(R.layout.movie_detail, container, false)
 
         // Show the dummy content as text in a TextView.
         item?.let {

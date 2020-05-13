@@ -4,7 +4,7 @@
     It is included in the activity_item_list.xml
 
     The elements of the RecyclerView are defined in
-    item_list_content.xml
+    main_list_content.xml
 -->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -22,6 +22,6 @@
         android:layout_marginRight="16dp"
         app:layoutManager="LinearLayoutManager"
         tools:context=".view.MainListActivity"
-        tools:listitem="@layout/item_list_content"
+        tools:listitem="@layout/main_list_content"
         />
 </LinearLayout>

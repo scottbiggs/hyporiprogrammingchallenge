@@ -22,14 +22,14 @@ object Presenter {
      *
      * @param   ctx     Nothing much can happen without this
      *
-     * @param   movieCallback   Callback function to receive the list of movies.
-     *                          It will receive the list as a parameter.
+     * @param   movieListCallback   Callback function to receive the list of movies.
+     *                              It will receive the list as a parameter.
      */
-    fun requestMovieList(ctx: Context, movieCallback: (movieList: List<Movie>?) -> Unit) {
+    fun requestMovieList(ctx: Context, movieListCallback: (movieList: List<Movie>?) -> Unit) {
 
         MovieRequester.getMovies(ctx) { movies ->
             Log.d(TAG, "movies: ${movies?.size}")
-            movieCallback.invoke(movies)
+            movieListCallback.invoke(movies)
         }
     }
 
@@ -41,4 +41,15 @@ object Presenter {
         MovieRequester.cancelMovieRequest()
     }
 
+
+    fun requestMovieData(ctx: Context, movieId: Int, movieDataCallback: (movie: Movie?) -> Unit) {
+
+        MovieRequester.requestMovieData(ctx, movieId) { movie ->
+            movieDataCallback.invoke(movie)
+        }
+    }
+
+    fun cancelMovieDataRequest() {
+        MovieRequester.cancelMovieDataRequest()
+    }
 }

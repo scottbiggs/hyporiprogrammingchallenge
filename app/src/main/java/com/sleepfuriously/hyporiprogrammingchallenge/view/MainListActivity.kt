@@ -1,28 +1,25 @@
 package com.sleepfuriously.hyporiprogrammingchallenge.view
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.sleepfuriously.hyporiprogrammingchallenge.R
 
-import com.sleepfuriously.hyporiprogrammingchallenge.dummy.DummyContent
 import com.sleepfuriously.hyporiprogrammingchallenge.model.Movie
 import com.sleepfuriously.hyporiprogrammingchallenge.model.MovieRequester
 import com.sleepfuriously.hyporiprogrammingchallenge.presenter.Presenter
 import kotlinx.android.synthetic.main.activity_item_list.*
-import kotlinx.android.synthetic.main.item_list.*
+import kotlinx.android.synthetic.main.main_list.*
 
 /**
  * An activity representing a list of Pings. This activity
  * has different presentations for handset and tablet-size devices. On
  * handsets, the activity presents a list of items, which when touched,
- * lead to a [ItemDetailActivity] representing
+ * lead to a [MovieDetailActivity] representing
  * item details. On tablets, the activity presents the list of items and
  * item details side-by-side using two vertical panes.
  */

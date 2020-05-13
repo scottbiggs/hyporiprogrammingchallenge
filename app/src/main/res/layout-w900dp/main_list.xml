@@ -4,10 +4,10 @@
     It is included in the activity_item_list.xml
 
     The elements of the RecyclerView are defined in
-    item_list_content.xml
+    main_list_content.xml
 
     The contents of the item_detail_container (FrameLayout)
-    are found in item_detail.xml
+    are found in movie_detail.xmll
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -41,7 +41,7 @@
             android:layout_marginRight="16dp"
             app:layoutManager="LinearLayoutManager"
             tools:context=".view.MainListActivity"
-            tools:listitem="@layout/item_list_content"
+            tools:listitem="@layout/main_list_content"
             />
     </LinearLayout>
 

@@ -2,7 +2,7 @@
 <!--
     Used on all devices, this is the top-layer background
     for the main list.  Provides the appbar, fab, and
-    includes the list layout (see item_list.xml).
+    includes the list layout (see main_list.xml).
 -->
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -33,7 +33,7 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <include layout="@layout/item_list" />
+        <include layout="@layout/main_list" />
     </FrameLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

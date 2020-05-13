@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Hypori Programming Challenge</string>
-    <string name="title_item_detail">Item Detail</string>
+    <string name="title_movie_detail">Movie Detail</string>
 
     <!-- errors -->
     <string name="internet_probs">Problems getting data from server. Is your internet turned on\?</string>

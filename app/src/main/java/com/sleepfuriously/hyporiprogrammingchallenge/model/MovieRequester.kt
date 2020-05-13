@@ -22,6 +22,10 @@ object MovieRequester {
     private const val TAG = "MovieRequester"
     private const val MOVIELIST_URL = "https://swapi.dev/api/films/"
 
+    /** prefix for the urls of all the movies.  Append the id to get the actual url */
+    private const val MOVIE_DATA_PREFIX = "https://swapi.dev/api/films/"
+
+
     //---------------------------------
     //  data
     //---------------------------------
@@ -100,6 +104,44 @@ object MovieRequester {
      * be completed.
      */
     fun cancelMovieRequest() {
+        movieRequestQ?.cancelAll(this)
+    }
+
+
+    /**
+     * Requests the data for a specific movie.
+     *
+     * @param   ctx     gotta have it
+     *
+     * @param   movieId The id for the movie.  It's simply the number of the
+     *                  movie in the array of movies
+     *
+     * @param   movieDataCallback   function to callback once the data has arrived.
+     *                              It's [Movie] parameter will hold the data, or be
+     *                              null on error.
+     */
+    fun requestMovieData(ctx: Context, movieId: Int, movieDataCallback: (movie: Movie?) -> Unit) {
+        // setup a volley request
+        movieRequestQ = Volley.newRequestQueue(ctx)
+        val request = JsonObjectRequest(
+            Request.Method.GET, MOVIE_DATA_PREFIX + movieId, null,
+
+            // successful response
+            Response.Listener { response ->
+                val movieData = Movie(response)
+                movieDataCallback.invoke(movieData)
+            },
+
+            // error response
+            Response.ErrorListener { error ->
+                Log.e(TAG, "Volley error in requestMovieData()")
+                error.printStackTrace()
+                movieDataCallback.invoke(null)
+            })
+        movieRequestQ?.add(request)
+    }
+
+    fun cancelMovieDataRequest() {
         movieRequestQ?.cancelAll(this)
     }
 

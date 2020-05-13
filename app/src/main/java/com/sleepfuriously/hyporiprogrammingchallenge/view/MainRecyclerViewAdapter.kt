@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.sleepfuriously.hyporiprogrammingchallenge.R
 import com.sleepfuriously.hyporiprogrammingchallenge.model.Movie
-import kotlinx.android.synthetic.main.item_list_content.view.*
+import kotlinx.android.synthetic.main.main_list_content.view.*
 
 /**
  * Adapter for the primary list of this app.
@@ -51,10 +51,10 @@ class MainRecyclerViewAdapter(
 //            val item = v.tag as DummyContent.DummyItem
 
             if (mTwoPane) {
-                val fragment = ItemDetailFragment()
+                val fragment = MovieDetailFragment()
                     .apply {
                         arguments = Bundle().apply {
-                            putString(ItemDetailFragment.ARG_ITEM_ID, movie.title)
+                            putString(MovieDetailFragment.ARG_ITEM_ID, movie.title)
                         }
                     }
                 mParentActivity.supportFragmentManager
@@ -62,8 +62,8 @@ class MainRecyclerViewAdapter(
                     .replace(R.id.item_detail_container, fragment)
                     .commit()
             } else {
-                val intent = Intent(v.context, ItemDetailActivity::class.java).apply {
-                    putExtra(ItemDetailFragment.ARG_ITEM_ID, movie.title)
+                val intent = Intent(v.context, MovieDetailActivity::class.java).apply {
+                    putExtra(MovieDetailFragment.ARG_ITEM_ID, movie.title)
                 }
                 v.context.startActivity(intent)
             }
@@ -73,7 +73,7 @@ class MainRecyclerViewAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_list_content, parent, false)
+            .inflate(R.layout.main_list_content, parent, false)
         return ViewHolder(view)
     }
 

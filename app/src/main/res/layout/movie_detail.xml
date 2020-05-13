@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    2nd level - detail data of the first list item.
-    This will appear in the ItemDetailFragment (which
+    2nd level - detail data of the a movie.
+    This will appear in the MovieDetailFragment (which
     will appear differently depending on the device's size).
 -->
 <TextView
@@ -14,4 +14,4 @@
     android:padding="16dp"
     tools:text="detail of an item"
     android:textIsSelectable="true"
-    tools:context=".view.ItemDetailFragment" />
+    tools:context=".view.MovieDetailFragment" />
