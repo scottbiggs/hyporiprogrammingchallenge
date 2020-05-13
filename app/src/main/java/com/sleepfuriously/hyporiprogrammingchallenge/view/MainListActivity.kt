@@ -91,8 +91,6 @@ class MainListActivity : AppCompatActivity() {
         // a couple of widgets
         mDebugTv = findViewById(R.id.debug_tv)
         mProgressBar = findViewById(R.id.progress_bar)
-
-        setupRecyclerView(item_list)
     }
 
 
@@ -125,8 +123,8 @@ class MainListActivity : AppCompatActivity() {
     //  functions
     //------------------------------
 
-    private fun setupRecyclerView(recyclerView: RecyclerView) {
-        mMainListAdapter = MainRecyclerViewAdapter(this, DummyContent.ITEMS, mTwoPane)
+    private fun setupRecyclerView(recyclerView: RecyclerView, movieList: List<Movie>) {
+        mMainListAdapter = MainRecyclerViewAdapter(this, movieList, mTwoPane)
         recyclerView.adapter = mMainListAdapter
     }
 
@@ -147,7 +145,7 @@ class MainListActivity : AppCompatActivity() {
 
             turnOffWaitingUI()
             if (movies != null) {
-                fillMainRecyclerView(movies)
+                setupRecyclerView(item_list, movies)
                 mMoviesFound = true
             }
             else {
@@ -175,9 +173,5 @@ class MainListActivity : AppCompatActivity() {
         mProgressBar.visibility = View.GONE
     }
 
-
-    private fun fillMainRecyclerView(movieList: List<Movie>) {
-        // todo
-    }
 
 }

@@ -2,39 +2,41 @@
 <!--
     Layout for each item in the main list.
 -->
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp"
-    >
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="4dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
+        android:padding="8dp"
         >
 
         <TextView
-            android:id="@+id/id_text"
+            android:id="@+id/title_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
+            android:layout_marginStart="@dimen/text_margin"
+            android:layout_marginEnd="@dimen/text_margin"
+            android:layout_marginBottom="8dp"
+            tools:text="Movie Title"
             android:textAppearance="?attr/textAppearanceListItem" />
 
-        <View
-            android:layout_width="2dp"
-            android:layout_height="match_parent"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="6dp"
-            android:background="@color/colorPrimaryLight"
-            />
-
+        <!-- trying to make this look as close to the famous crawl as possible without getting absurd -->
         <TextView
-            android:id="@+id/content"
+            android:id="@+id/crawl_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
-            android:textAppearance="?attr/textAppearanceListItem" />
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="@dimen/text_margin"
+            android:layout_marginEnd="@dimen/text_margin"
+            android:maxLines="2"
+            android:ellipsize="end"
+            tools:text="The opening crawl will appear here.  It'll be truncated, preferably with some sort of elipsis. If not, then I guess I'll have to live with it."
+
+            android:textAppearance="?attr/textAppearanceListItemSecondary" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>
