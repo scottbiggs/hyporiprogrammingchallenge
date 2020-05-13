@@ -48,8 +48,12 @@ object MovieRequester {
 
                 val jsonMovieList = response.getJSONArray("results")
                 val length = response.getInt("count")
+                if (length != jsonMovieList.length()) {
+                    Log.e(TAG, "incompatible lengths in jsonMovieList. Expected $length, but found ${jsonMovieList.length()}")
+                    movieCallback.invoke(null)
+                }
 
-                for (i in 0 until jsonMovieList.length()) {
+                for (i in 0 until length) {
                     try {
                         val jsonObject = jsonMovieList.getJSONObject(i)
                         movieList.add(Movie(jsonObject))

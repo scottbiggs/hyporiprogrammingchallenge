@@ -2,6 +2,8 @@ package com.sleepfuriously.hyporiprogrammingchallenge.view
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
@@ -24,15 +26,35 @@ import kotlinx.android.synthetic.main.item_list.*
  */
 class MainListActivity : AppCompatActivity() {
 
+    //------------------------------
+    //  constants
+    //------------------------------
+
+    //------------------------------
+    //  widgets
+    //------------------------------
+
+    /** debug messages go here */
+    private lateinit var debugTv: TextView
+
+    /** display for to users that app is waiting on something */
+    private lateinit var progressBar: ProgressBar
+
+
+    //------------------------------
+    //  data
+    //------------------------------
+
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
      */
     private var twoPane: Boolean = false
 
-    private lateinit var debugTv: TextView
 
-
+    //------------------------------
+    //  functions
+    //------------------------------
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,10 +76,11 @@ class MainListActivity : AppCompatActivity() {
             twoPane = true
         }
 
-        setupRecyclerView(item_list)
-
+        // a couple of widgets
         debugTv = findViewById(R.id.debug_tv)
+        progressBar = findViewById(R.id.progress_bar)
 
+        setupRecyclerView(item_list)
 
 
         // Request some movies
@@ -88,18 +111,25 @@ class MainListActivity : AppCompatActivity() {
             )
     }
 
-
+    /**
+     * preconditions:
+     *      progressBar     setup and ready to go
+     */
     private fun turnOnWaitingUI() {
-        // todo
+        progressBar.visibility = View.VISIBLE
     }
 
+    /**
+     * preconditions:
+     *      progressBar     setup and ready to go
+     */
     private fun turnOffWaitingUI() {
-        // todo
+        progressBar.visibility = View.GONE
     }
 
 
     private fun fillMainRecyclerView(movieList: List<Movie>) {
-        //
+        // todo
     }
 
 }
