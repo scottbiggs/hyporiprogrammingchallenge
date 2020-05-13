@@ -51,6 +51,9 @@ class MainListActivity : AppCompatActivity() {
      */
     private var twoPane: Boolean = false
 
+    /** Will be false as long as no movies have been loaded */
+    private var moviesFound = false
+
 
     //------------------------------
     //  functions
@@ -63,6 +66,7 @@ class MainListActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         toolbar.title = title
 
+        // todo: do something with this or remove it
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
@@ -83,22 +87,17 @@ class MainListActivity : AppCompatActivity() {
         setupRecyclerView(item_list)
 
 
-        // Request some movies
-        turnOnWaitingUI()
-        Presenter.requestMovieList(applicationContext) { movies ->
-            // display this text once the movies happen
-            debugTv.text = "I promise to display ${movies?.size} movies next time"
+        getMovies()
+    }
 
-            turnOffWaitingUI()
-            if (movies != null) {
-                fillMainRecyclerView(movies)
-            }
-            else {
-                Snackbar.make(item_list, R.string.internet_probs, Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-            }
+    override fun onResume() {
+        super.onResume()
+
+        // keep trying until we actually find something (user may have left
+        // the app to turn on internet, so try again once focus is regained).
+        if (!moviesFound) {
+            getMovies()
         }
-
     }
 
 
@@ -110,6 +109,30 @@ class MainListActivity : AppCompatActivity() {
                 twoPane
             )
     }
+
+    /**
+     * The details of getting a movie list and acting on the results
+     * are kept here.
+     */
+    private fun getMovies() {
+        turnOnWaitingUI()
+        Presenter.requestMovieList(applicationContext) { movies ->
+            // display this text once the movies happen
+            debugTv.text = "I promise to display ${movies?.size} movies next time"
+
+            turnOffWaitingUI()
+            if (movies != null) {
+                fillMainRecyclerView(movies)
+                moviesFound = true
+            }
+            else {
+                Snackbar.make(item_list, R.string.internet_probs, Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show()
+            }
+        }
+
+    }
+
 
     /**
      * preconditions:
