@@ -17,6 +17,14 @@ object Presenter {
     val TAG = "Presenter"
 
 
+    /**
+     * Anything that wants a list of [Movie]s should call this.
+     *
+     * @param   ctx     Nothing much can happen without this
+     *
+     * @param   movieCallback   Callback function to receive the list of movies.
+     *                          It will receive the list as a parameter.
+     */
     fun requestMovieList(ctx: Context, movieCallback: (movieList: List<Movie>?) -> Unit) {
 
         MovieRequester.getMovies(ctx) { movies ->
@@ -25,5 +33,12 @@ object Presenter {
         }
     }
 
+    /**
+     * Change your mind (or is the context about to die)?  Please
+     * call this function to cancel the request for movies.
+     */
+    fun cancelMovieListRequest() {
+        MovieRequester.cancelMovieRequest()
+    }
 
 }

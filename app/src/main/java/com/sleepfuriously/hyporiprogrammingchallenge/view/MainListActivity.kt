@@ -12,6 +12,7 @@ import com.sleepfuriously.hyporiprogrammingchallenge.R
 
 import com.sleepfuriously.hyporiprogrammingchallenge.dummy.DummyContent
 import com.sleepfuriously.hyporiprogrammingchallenge.model.Movie
+import com.sleepfuriously.hyporiprogrammingchallenge.model.MovieRequester
 import com.sleepfuriously.hyporiprogrammingchallenge.presenter.Presenter
 import kotlinx.android.synthetic.main.activity_item_list.*
 import kotlinx.android.synthetic.main.item_list.*
@@ -56,7 +57,7 @@ class MainListActivity : AppCompatActivity() {
 
 
     //------------------------------
-    //  functions
+    //  life-cycle functions
     //------------------------------
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -90,6 +91,7 @@ class MainListActivity : AppCompatActivity() {
         getMovies()
     }
 
+
     override fun onResume() {
         super.onResume()
 
@@ -100,6 +102,18 @@ class MainListActivity : AppCompatActivity() {
         }
     }
 
+
+    override fun onDestroy() {
+        if (!moviesFound) {
+            MovieRequester.cancelMovieRequest()
+        }
+        super.onDestroy()
+    }
+
+
+    //------------------------------
+    //  functions
+    //------------------------------
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
         recyclerView.adapter =

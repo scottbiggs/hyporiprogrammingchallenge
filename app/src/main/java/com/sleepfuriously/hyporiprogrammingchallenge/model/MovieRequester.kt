@@ -3,6 +3,7 @@ package com.sleepfuriously.hyporiprogrammingchallenge.model
 import android.content.Context
 import android.util.Log
 import com.android.volley.Request
+import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.VolleyError
 import com.android.volley.toolbox.JsonArrayRequest
@@ -30,6 +31,15 @@ object MovieRequester {
     //  data
     //---------------------------------
 
+    /**
+     * Holds the request queue.  Needed to properly cancel a
+     * request in progress.
+     *
+     * Should be null when not in use.
+     */
+    private var movieRequestQ: RequestQueue? = null
+
+
     //---------------------------------
     //  functions
     //---------------------------------
@@ -47,7 +57,7 @@ object MovieRequester {
     fun getMovies(ctx: Context, movieCallback: (movieList: List<Movie>?) -> Unit) {
 
         // setup a volley request
-        val q = Volley.newRequestQueue(ctx)
+        movieRequestQ = Volley.newRequestQueue(ctx)
         val request = JsonObjectRequest(
             Request.Method.GET, MOVIELIST_URL, null,
 
@@ -85,8 +95,17 @@ object MovieRequester {
                 error.printStackTrace()
                 movieCallback.invoke(null)
             })
-        q.add(request)
+        movieRequestQ?.add(request)
+    }
 
+
+    /**
+     * Cancels a request for movies.  Most likely use is for a configuration
+     * change where the requester will be destroyed before the request can
+     * be completed.
+     */
+    fun cancelMovieRequest() {
+        movieRequestQ?.cancelAll(this)
     }
 
 }
