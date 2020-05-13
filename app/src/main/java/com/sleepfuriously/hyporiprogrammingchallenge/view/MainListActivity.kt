@@ -31,15 +31,20 @@ class MainListActivity : AppCompatActivity() {
     //  constants
     //------------------------------
 
+    val TAG = "MainListActivity"
+
     //------------------------------
     //  widgets
     //------------------------------
 
     /** debug messages go here */
-    private lateinit var debugTv: TextView
+    private lateinit var mDebugTv: TextView
 
     /** display for to users that app is waiting on something */
-    private lateinit var progressBar: ProgressBar
+    private lateinit var mProgressBar: ProgressBar
+
+    /** Adapter for our recyclerview */
+    private lateinit var mMainListAdapter: MainRecyclerViewAdapter
 
 
     //------------------------------
@@ -50,10 +55,10 @@ class MainListActivity : AppCompatActivity() {
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
      */
-    private var twoPane: Boolean = false
+    private var mTwoPane: Boolean = false
 
     /** Will be false as long as no movies have been loaded */
-    private var moviesFound = false
+    private var mMoviesFound = false
 
 
     //------------------------------
@@ -78,33 +83,36 @@ class MainListActivity : AppCompatActivity() {
             // large-screen layouts (res/values-w900dp).
             // If this view is present, then the
             // activity should be in two-pane mode.
-            twoPane = true
+            mTwoPane = true
         }
 
         // a couple of widgets
-        debugTv = findViewById(R.id.debug_tv)
-        progressBar = findViewById(R.id.progress_bar)
+        mDebugTv = findViewById(R.id.debug_tv)
+        mProgressBar = findViewById(R.id.progress_bar)
 
         setupRecyclerView(item_list)
-
-
-        getMovies()
     }
 
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+
+        Log.d(TAG, "onRestoreInstanceState()")
+    }
 
     override fun onResume() {
         super.onResume()
 
         // keep trying until we actually find something (user may have left
         // the app to turn on internet, so try again once focus is regained).
-        if (!moviesFound) {
+        if (!mMoviesFound) {
             getMovies()
         }
     }
 
 
     override fun onDestroy() {
-        if (!moviesFound) {
+        if (!mMoviesFound) {
             MovieRequester.cancelMovieRequest()
         }
         super.onDestroy()
@@ -116,12 +124,8 @@ class MainListActivity : AppCompatActivity() {
     //------------------------------
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
-        recyclerView.adapter =
-            MainRecyclerViewAdapter(
-                this,
-                DummyContent.ITEMS,
-                twoPane
-            )
+        mMainListAdapter = MainRecyclerViewAdapter(this, DummyContent.ITEMS, mTwoPane)
+        recyclerView.adapter = mMainListAdapter
     }
 
     /**
@@ -129,15 +133,19 @@ class MainListActivity : AppCompatActivity() {
      * are kept here.
      */
     private fun getMovies() {
+        if (mMoviesFound) {
+            return  // already done
+        }
+
         turnOnWaitingUI()
         Presenter.requestMovieList(applicationContext) { movies ->
-            // display this text once the movies happen
-            debugTv.text = "I promise to display ${movies?.size} movies next time"
+            // display this text once the movies happen.  todo: remove this reference
+            mDebugTv.text = "I promise to display ${movies?.size} movies next time"
 
             turnOffWaitingUI()
             if (movies != null) {
                 fillMainRecyclerView(movies)
-                moviesFound = true
+                mMoviesFound = true
             }
             else {
                 Snackbar.make(item_list, R.string.internet_probs, Snackbar.LENGTH_LONG)
@@ -150,18 +158,18 @@ class MainListActivity : AppCompatActivity() {
 
     /**
      * preconditions:
-     *      progressBar     setup and ready to go
+     *      mProgressBar     setup and ready to go
      */
     private fun turnOnWaitingUI() {
-        progressBar.visibility = View.VISIBLE
+        mProgressBar.visibility = View.VISIBLE
     }
 
     /**
      * preconditions:
-     *      progressBar     setup and ready to go
+     *      mProgressBar     setup and ready to go
      */
     private fun turnOffWaitingUI() {
-        progressBar.visibility = View.GONE
+        mProgressBar.visibility = View.GONE
     }
 
 
