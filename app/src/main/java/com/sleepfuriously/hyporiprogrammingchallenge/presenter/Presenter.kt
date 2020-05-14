@@ -42,9 +42,9 @@ object Presenter {
     }
 
 
-    fun requestMovieData(ctx: Context, movieId: Int, movieDataCallback: (movie: Movie?) -> Unit) {
+    fun requestMovieData(ctx: Context, movieUrl: String, movieDataCallback: (movie: Movie?) -> Unit) {
 
-        MovieRequester.requestMovieData(ctx, movieId) { movie ->
+        MovieRequester.requestMovieData(ctx, movieUrl) { movie ->
             movieDataCallback.invoke(movie)
         }
     }

@@ -4,14 +4,46 @@
     This will appear in the MovieDetailFragment (which
     will appear differently depending on the device's size).
 -->
-<TextView
+
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/item_detail"
-    style="?android:attr/textAppearanceLarge"
+    android:id="@+id/movie_detail_sv"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp"
-    tools:text="detail of an item"
-    android:textIsSelectable="true"
-    tools:context=".view.MovieDetailFragment" />
+    android:layout_height="wrap_content"
+    tools:context=".view.MovieDetailFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:id="@+id/title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/text_margin"
+            android:layout_marginEnd="@dimen/text_margin"
+            android:layout_marginBottom="8dp"
+            tools:text="Movie Title"
+            android:textAppearance="?attr/textAppearanceListItem"
+            />
+
+        <!-- trying to make this look as close to the famous crawl as possible without getting absurd -->
+        <TextView
+            android:id="@+id/crawl_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="@dimen/text_margin"
+            android:layout_marginEnd="@dimen/text_margin"
+            tools:text="The opening crawl will appear here.  It'll be truncated, preferably with some sort of elipsis. If not, then I guess I'll have to live with it."
+            android:textAppearance="?attr/textAppearanceListItemSecondary" />
+
+
+
+    </LinearLayout>
+
+</ScrollView>

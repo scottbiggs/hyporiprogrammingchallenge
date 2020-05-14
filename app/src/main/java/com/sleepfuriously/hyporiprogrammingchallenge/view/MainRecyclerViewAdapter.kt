@@ -54,7 +54,8 @@ class MainRecyclerViewAdapter(
                 val fragment = MovieDetailFragment()
                     .apply {
                         arguments = Bundle().apply {
-                            putString(MovieDetailFragment.ARG_ITEM_ID, movie.title)
+//                            putString(MovieDetailFragment.ARG_ITEM_ID, movie.title)
+                            putString(MovieDetailFragment.ARG_MOVIE_URL, movie.url)
                         }
                     }
                 mParentActivity.supportFragmentManager
@@ -63,7 +64,8 @@ class MainRecyclerViewAdapter(
                     .commit()
             } else {
                 val intent = Intent(v.context, MovieDetailActivity::class.java).apply {
-                    putExtra(MovieDetailFragment.ARG_ITEM_ID, movie.title)
+//                    putExtra(MovieDetailFragment.ARG_MOVIE_ID, movie.title)
+                    putExtra(MovieDetailFragment.ARG_MOVIE_URL, movie.url)
                 }
                 v.context.startActivity(intent)
             }

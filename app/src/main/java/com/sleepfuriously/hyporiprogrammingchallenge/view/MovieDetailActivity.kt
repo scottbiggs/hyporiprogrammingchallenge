@@ -40,19 +40,35 @@ class MovieDetailActivity : AppCompatActivity() {
         // http://developer.android.com/guide/components/fragments.html
         //
         if (savedInstanceState == null) {
+
+//            val movieId = intent.getIntExtra(MovieDetailFragment.ARG_MOVIE_ID, 0)
+            val movieUrl = intent.getStringExtra(MovieDetailFragment.ARG_MOVIE_URL)
+
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
-            val fragment = MovieDetailFragment().apply {
-                arguments = Bundle().apply {
-                    putString(
-                        MovieDetailFragment.ARG_ITEM_ID,
-                        intent.getStringExtra(MovieDetailFragment.ARG_ITEM_ID)
-                    )
-                }
-            }
+            val bundle = Bundle()
+//            bundle.putInt(MovieDetailFragment.ARG_MOVIE_ID, movieId)
+            bundle.putString(MovieDetailFragment.ARG_MOVIE_URL, movieUrl)
+
+            val movieDetailFragment = MovieDetailFragment()
+            movieDetailFragment.arguments = bundle
+
+
+//            val fragment = MovieDetailFragment().apply {
+//                arguments = Bundle().apply {
+//                    putString(
+//                        MovieDetailFragment.ARG_ITEM_ID,
+//                        intent.getStringExtra(MovieDetailFragment.ARG_ITEM_ID)
+//                    )
+//                    putInt(
+//                        MovieDetailFragment.ARG_MOVIE_ID,
+//                        intent.getIntExtra(MovieDetailFragment.ARG_MOVIE_ID, 1)
+//                    )
+//                }
+//            }
 
             supportFragmentManager.beginTransaction()
-                .add(R.id.item_detail_container, fragment)
+                .add(R.id.item_detail_container, movieDetailFragment)
                 .commit()
         }
     }

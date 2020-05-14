@@ -23,7 +23,7 @@ object MovieRequester {
     private const val MOVIELIST_URL = "https://swapi.dev/api/films/"
 
     /** prefix for the urls of all the movies.  Append the id to get the actual url */
-    private const val MOVIE_DATA_PREFIX = "https://swapi.dev/api/films/"
+//    private const val MOVIE_DATA_PREFIX = "https://swapi.dev/api/films/"
 
 
     //---------------------------------
@@ -113,18 +113,29 @@ object MovieRequester {
      *
      * @param   ctx     gotta have it
      *
-     * @param   movieId The id for the movie.  It's simply the number of the
-     *                  movie in the array of movies
+     * @param   movieUrl    The url for the movie data.
      *
      * @param   movieDataCallback   function to callback once the data has arrived.
      *                              It's [Movie] parameter will hold the data, or be
      *                              null on error.
      */
-    fun requestMovieData(ctx: Context, movieId: Int, movieDataCallback: (movie: Movie?) -> Unit) {
+    fun requestMovieData(ctx: Context, movieUrl: String, movieDataCallback: (movie: Movie?) -> Unit) {
+
+        // HACK!!!
+        // Many urls use http:// prefixes, which have all been moved to the https://
+        // equivalents.  This creates a 301 (redirect) error that Volley doesn't
+        // handle correctly.
+        //
+        // So I check and correct the prefix.
+        var actualUrl = movieUrl
+        if (!movieUrl.contains("https", true)) {
+            actualUrl = movieUrl.replace("http:", "https:")
+        }
+
         // setup a volley request
         movieRequestQ = Volley.newRequestQueue(ctx)
         val request = JsonObjectRequest(
-            Request.Method.GET, MOVIE_DATA_PREFIX + movieId, null,
+            Request.Method.GET, actualUrl, null,
 
             // successful response
             Response.Listener { response ->
@@ -141,6 +152,10 @@ object MovieRequester {
         movieRequestQ?.add(request)
     }
 
+
+    /**
+     * Cancels a request for movie data.
+     */
     fun cancelMovieDataRequest() {
         movieRequestQ?.cancelAll(this)
     }

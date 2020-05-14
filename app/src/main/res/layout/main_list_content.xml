@@ -23,7 +23,8 @@
             android:layout_marginEnd="@dimen/text_margin"
             android:layout_marginBottom="8dp"
             tools:text="Movie Title"
-            android:textAppearance="?attr/textAppearanceListItem" />
+            android:textAppearance="?attr/textAppearanceListItem"
+            />
 
         <!-- trying to make this look as close to the famous crawl as possible without getting absurd -->
         <TextView
@@ -36,7 +37,6 @@
             android:maxLines="2"
             android:ellipsize="end"
             tools:text="The opening crawl will appear here.  It'll be truncated, preferably with some sort of elipsis. If not, then I guess I'll have to live with it."
-
             android:textAppearance="?attr/textAppearanceListItemSecondary" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>
