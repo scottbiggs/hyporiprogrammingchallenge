@@ -17,5 +17,6 @@
 
     <!-- errors -->
     <string name="internet_probs">Problems getting data from server. Is your internet turned on\?</string>
+    <string name="not_implemented">Not implemented yet, sorry</string>
 
 </resources>

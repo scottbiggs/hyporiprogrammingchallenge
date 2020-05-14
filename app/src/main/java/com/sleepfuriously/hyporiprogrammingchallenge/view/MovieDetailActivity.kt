@@ -38,11 +38,10 @@ class MovieDetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_item_detail)
         setSupportActionBar(detail_toolbar)
 
-        // todo: do something with this or remove it
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
+//        fab.setOnClickListener { view ->
+//            Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
+//                .setAction("Action", null).show()
+//        }
 
         // Show the Up button in the action bar.
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -96,7 +95,7 @@ class MovieDetailActivity : AppCompatActivity() {
      * preconditions:
      *      mProgressBar     setup and ready to go
      */
-    public fun turnOnWaitingUI() {
+    fun turnOnWaitingUI() {
         mProgressBar.visibility = View.VISIBLE
     }
 
@@ -104,7 +103,7 @@ class MovieDetailActivity : AppCompatActivity() {
      * preconditions:
      *      mProgressBar     setup and ready to go
      */
-    public fun turnOffWaitingUI() {
+    fun turnOffWaitingUI() {
         mProgressBar.visibility = View.GONE
     }
 

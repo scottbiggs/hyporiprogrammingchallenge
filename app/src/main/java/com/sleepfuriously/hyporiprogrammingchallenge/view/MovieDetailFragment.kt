@@ -13,7 +13,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.google.android.material.snackbar.Snackbar
 import com.sleepfuriously.hyporiprogrammingchallenge.R
-import com.sleepfuriously.hyporiprogrammingchallenge.dummy.DummyContent
 import com.sleepfuriously.hyporiprogrammingchallenge.model.SWMovie
 import com.sleepfuriously.hyporiprogrammingchallenge.presenter.Presenter
 import kotlinx.android.synthetic.main.movie_detail.view.*
@@ -21,7 +20,7 @@ import kotlinx.android.synthetic.main.movie_detail.view.*
 /**
  * A fragment representing detail of a single movie.
  * This fragment is either contained in a [MainListActivity]
- * in two-pane mode (on tablets) or a [ItemDetailActivity]
+ * in two-pane mode (on tablets) or a [MovieDetailActivity]
  * on handsets.
  */
 class MovieDetailFragment : Fragment() {
@@ -34,6 +33,7 @@ class MovieDetailFragment : Fragment() {
     private val TAG = "MovieDetailFragment"
 
     /** pixels separating the various elements */
+    @Suppress("PrivatePropertyName")
     private val SPACING_FOR_LISTS = 16
 
     companion object {
@@ -44,16 +44,11 @@ class MovieDetailFragment : Fragment() {
     }
 
     /** Holds all the info on this movie that we're displaying */
-    var mMovieData: SWMovie? = null
+    private var mMovieData: SWMovie? = null
 
     //-----------------------------
     //  data
     //-----------------------------
-
-    /**
-     * The dummy content this fragment is presenting.
-     */
-    private var item: DummyContent.DummyItem? = null
 
     /**
      * Url for this movie data. Sent into this Fragment's arguments
@@ -99,9 +94,7 @@ class MovieDetailFragment : Fragment() {
         run {
             val characterButton = rootView.findViewById<Button>(R.id.characters_butt)
             characterButton.setOnClickListener(View.OnClickListener {
-                val parent = characterButton.parent as ViewGroup
-                val buttonPos = parent.indexOfChild(characterButton)
-                grabCharacters(ctx, characterButton.parent as ViewGroup, buttonPos + 1)
+                grabCharacters(ctx, characterButton.parent as ViewGroup)
             })
         }
 
@@ -109,12 +102,35 @@ class MovieDetailFragment : Fragment() {
         run {
             val planetButton = rootView.findViewById<Button>(R.id.planets_butt)
             planetButton.setOnClickListener(View.OnClickListener {
-                val parent = planetButton.parent as ViewGroup
-                val buttonPos = parent.indexOfChild(planetButton)
-                grabPlanets(ctx, planetButton.parent as ViewGroup, buttonPos + 1)
+                grabPlanets(ctx, planetButton.parent as ViewGroup)
             })
         }
 
+        run {
+            val starshipsButton = rootView.findViewById<Button>(R.id.starships_butt)
+            starshipsButton.setOnClickListener(View.OnClickListener {
+                Snackbar.make(rootView, R.string.not_implemented, Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show()
+            })
+        }
+
+        run {
+            val vehiclesButton = rootView.findViewById<Button>(R.id.vehicles_butt)
+            vehiclesButton.setOnClickListener(View.OnClickListener {
+                Snackbar.make(rootView, R.string.not_implemented, Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show()
+            })
+        }
+
+        run {
+            val speciesButton = rootView.findViewById<Button>(R.id.species_butt)
+            speciesButton.setOnClickListener(View.OnClickListener {
+                Snackbar.make(rootView, R.string.not_implemented, Snackbar.LENGTH_SHORT)
+                    .setAction("Action", null).show()
+            })
+        }
+
+        // todo:
 //        run {
 //            val starshipsButton = rootView.findViewById<Button>(R.id.starships_butt)
 //            starshipsButton.setOnClickListener(View.OnClickListener {
@@ -217,11 +233,8 @@ class MovieDetailFragment : Fragment() {
      * @param   ctx     check
      *
      * @param   parent  The viewGroup that this belongs to
-     *
-     * @param   startingPos     The position in the viewgroup that the first
-     *                          element should be put.
      */
-    private fun grabCharacters(ctx: Context, parent: ViewGroup, startingPos: Int) {
+    private fun grabCharacters(ctx: Context, parent: ViewGroup) {
         val urlList = arrayListOf<String>()
 
         // make character list
@@ -239,11 +252,30 @@ class MovieDetailFragment : Fragment() {
         val layoutParams = LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
         layoutParams.bottomMargin = SPACING_FOR_LISTS
 
+        var countdown = urlList.size    // used to know when to turn off the progress bar (when this is zero!)
+        turnOnWaitingUI()
         for (i in 0 until urlList.size) {
             Presenter.requestCharacterData(ctx, urlList[i]) { characterData ->
-                val tv = TextView(ctx)
-                tv.text = characterData?.toString(true)
-                parent.addView(tv, layoutParams)
+                if (characterData != null) {
+                    // success
+                    val tv = TextView(ctx)
+                    tv.text = characterData.toString(true)
+                    parent.addView(tv, layoutParams)
+
+                    countdown--
+                    if (countdown == 0) {
+                        turnOffWaitingUI()
+                    }
+                }
+                else {
+                    // error
+                    turnOffWaitingUI()
+                    Log.e(TAG, "error getting character data")
+                    Snackbar.make(parent, R.string.internet_probs, Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show()
+                    Presenter.cancelAllDataRequests()
+                }
+
             }
         }
     }
@@ -257,11 +289,8 @@ class MovieDetailFragment : Fragment() {
      * @param   ctx     check
      *
      * @param   parent  The viewGroup that this belongs to
-     *
-     * @param   startingPos     The position in the viewgroup that the first
-     *                          element should be put.
      */
-    private fun grabPlanets(ctx: Context, parent: ViewGroup, startingPos: Int) {
+    private fun grabPlanets(ctx: Context, parent: ViewGroup) {
         val urlList = arrayListOf<String>()
 
         for (i in 0 until mMovieData?.planets?.length()!!) {     // ew!! I'm so glad Kotlin doesn't have so much boilerplate code!
@@ -278,11 +307,31 @@ class MovieDetailFragment : Fragment() {
         val layoutParams = LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
         layoutParams.bottomMargin = SPACING_FOR_LISTS
 
+        var countdown = urlList.size    // used to know when to turn off the progress bar (when this is zero!)
+        turnOnWaitingUI()
         for (i in 0 until urlList.size) {
             Presenter.requestPlanetData(ctx, urlList[i]) { planetData ->
-                val tv = TextView(ctx)
-                tv.text = planetData?.toString(true)
-                parent.addView(tv, layoutParams)
+
+                if (planetData != null) {
+                    // success
+                    val tv = TextView(ctx)
+                    tv.text = planetData.toString(true)
+                    parent.addView(tv, layoutParams)
+
+                    countdown--
+                    if (countdown == 0) {
+                        turnOffWaitingUI()
+                    }
+                }
+                else {
+                    // error
+                    turnOffWaitingUI()
+                    Log.e(TAG, "error getting planet data")
+                    Snackbar.make(parent, R.string.internet_probs, Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show()
+                    Presenter.cancelAllDataRequests()
+                }
+
             }
         }
     }
