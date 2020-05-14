@@ -11,16 +11,12 @@ import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.view.marginBottom
 import com.google.android.material.snackbar.Snackbar
 import com.sleepfuriously.hyporiprogrammingchallenge.R
 import com.sleepfuriously.hyporiprogrammingchallenge.dummy.DummyContent
-import com.sleepfuriously.hyporiprogrammingchallenge.model.SWCharacter
 import com.sleepfuriously.hyporiprogrammingchallenge.model.SWMovie
 import com.sleepfuriously.hyporiprogrammingchallenge.presenter.Presenter
-import kotlinx.android.synthetic.main.movie_detail.*
 import kotlinx.android.synthetic.main.movie_detail.view.*
-import java.lang.StringBuilder
 
 /**
  * A fragment representing detail of a single movie.
@@ -36,6 +32,9 @@ class MovieDetailFragment : Fragment() {
 
     @Suppress("PrivatePropertyName")
     private val TAG = "MovieDetailFragment"
+
+    /** pixels separating the various elements */
+    private val SPACING_FOR_LISTS = 16
 
     companion object {
         /**
@@ -97,43 +96,52 @@ class MovieDetailFragment : Fragment() {
 
         // set the button listeners
 
-        val characterButton = rootView.findViewById<Button>(R.id.characters_butt)
-        characterButton.setOnClickListener(View.OnClickListener {
-            val parent = characterButton.parent as ViewGroup
-            val buttonPos = parent.indexOfChild(characterButton)
-            grabCharacters(ctx, characterButton.parent as ViewGroup, buttonPos + 1)
-        })
+        run {
+            val characterButton = rootView.findViewById<Button>(R.id.characters_butt)
+            characterButton.setOnClickListener(View.OnClickListener {
+                val parent = characterButton.parent as ViewGroup
+                val buttonPos = parent.indexOfChild(characterButton)
+                grabCharacters(ctx, characterButton.parent as ViewGroup, buttonPos + 1)
+            })
+        }
 
 
-//        characters_butt.setOnClickListener(object : View.OnClickListener {
-//            override fun onClick(v: View?) {
-//                grabCharacters()
-//            }
-//        })
+        run {
+            val planetButton = rootView.findViewById<Button>(R.id.planets_butt)
+            planetButton.setOnClickListener(View.OnClickListener {
+                val parent = planetButton.parent as ViewGroup
+                val buttonPos = parent.indexOfChild(planetButton)
+                grabPlanets(ctx, planetButton.parent as ViewGroup, buttonPos + 1)
+            })
+        }
 
-//        planets_butt.setOnClickListener(object : View.OnClickListener {
-//            override fun onClick(v: View?) {
-//                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-//            }
-//        })
+//        run {
+//            val starshipsButton = rootView.findViewById<Button>(R.id.starships_butt)
+//            starshipsButton.setOnClickListener(View.OnClickListener {
+//                val parent = starshipsButton.parent as ViewGroup
+//                val buttonPos = parent.indexOfChild(starshipsButton)
+//                grabStarships(ctx, starshipsButton.parent as ViewGroup, buttonPos + 1)
+//            })
+//        }
 //
-//        starships_butt.setOnClickListener(object : View.OnClickListener {
-//            override fun onClick(v: View?) {
-//                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-//            }
-//        })
+//        run {
+//            val vehiclesButton = rootView.findViewById<Button>(R.id.vehicles_butt)
+//            vehiclesButton.setOnClickListener(View.OnClickListener {
+//                val parent = vehiclesButton.parent as ViewGroup
+//                val buttonPos = parent.indexOfChild(vehiclesButton)
+//                grabVehicles(ctx, vehiclesButton.parent as ViewGroup, buttonPos + 1)
+//            })
+//        }
 //
-//        vehicles_butt.setOnClickListener(object : View.OnClickListener {
-//            override fun onClick(v: View?) {
-//                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-//            }
-//        })
-//
-//        species_butt.setOnClickListener(object : View.OnClickListener {
-//            override fun onClick(v: View?) {
-//                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-//            }
-//        })
+//        run {
+//            val speciesButton = rootView.findViewById<Button>(R.id.species_butt)
+//            speciesButton.setOnClickListener(View.OnClickListener {
+//                val parent = speciesButton.parent as ViewGroup
+//                val buttonPos = parent.indexOfChild(speciesButton)
+//                grabSpecies(ctx, speciesButton.parent as ViewGroup, buttonPos + 1)
+//            })
+//        }
+
 
         // request data for this movie
         turnOnWaitingUI()
@@ -150,16 +158,6 @@ class MovieDetailFragment : Fragment() {
                 rootView.edited_tv.text = movieData.dateEdited
 
                 turnOffWaitingUI()
-
-                // todo characters
-
-                // todo planets
-
-                // todo starships
-
-                // todo vehicles
-
-                // todo species
             }
             else {
                 turnOffWaitingUI()
@@ -239,7 +237,7 @@ class MovieDetailFragment : Fragment() {
         // Add that TextView to the layout.
 
         val layoutParams = LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
-        layoutParams.bottomMargin = 8
+        layoutParams.bottomMargin = SPACING_FOR_LISTS
 
         for (i in 0 until urlList.size) {
             Presenter.requestCharacterData(ctx, urlList[i]) { characterData ->
@@ -249,5 +247,45 @@ class MovieDetailFragment : Fragment() {
             }
         }
     }
+
+    /**
+     * User has decided to get more planets info.
+     * Let 'em have it.
+     *
+     * Very similar to [grabCharacters].
+     *
+     * @param   ctx     check
+     *
+     * @param   parent  The viewGroup that this belongs to
+     *
+     * @param   startingPos     The position in the viewgroup that the first
+     *                          element should be put.
+     */
+    private fun grabPlanets(ctx: Context, parent: ViewGroup, startingPos: Int) {
+        val urlList = arrayListOf<String>()
+
+        for (i in 0 until mMovieData?.planets?.length()!!) {     // ew!! I'm so glad Kotlin doesn't have so much boilerplate code!
+            val url: String? = mMovieData?.planets?.getString(i)
+            if (url != null) {
+                urlList.add(url)
+            }
+        }
+
+        // go through each planet, getting its data
+        // and put that data into a new TextView.
+        // Add that TextView to the layout.
+
+        val layoutParams = LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
+        layoutParams.bottomMargin = SPACING_FOR_LISTS
+
+        for (i in 0 until urlList.size) {
+            Presenter.requestPlanetData(ctx, urlList[i]) { planetData ->
+                val tv = TextView(ctx)
+                tv.text = planetData?.toString(true)
+                parent.addView(tv, layoutParams)
+            }
+        }
+    }
+
 
 }

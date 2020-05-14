@@ -5,6 +5,7 @@ import com.sleepfuriously.hyporiprogrammingchallenge.model.SWMovie
 
 import com.sleepfuriously.hyporiprogrammingchallenge.model.MovieRequester
 import com.sleepfuriously.hyporiprogrammingchallenge.model.SWCharacter
+import com.sleepfuriously.hyporiprogrammingchallenge.model.SWPlanet
 
 /**
  * Intermediary between the model and the view classes.
@@ -66,6 +67,13 @@ object Presenter {
             charDataCallback.invoke(character)
         }
     }
+
+    fun requestPlanetData(ctx: Context, planetUrl: String, planetDataCallback: (planetData: SWPlanet?) -> Unit) {
+        MovieRequester.requestPlanet(ctx, planetUrl) { planet ->
+            planetDataCallback.invoke(planet)
+        }
+    }
+
 
 
     /**

@@ -169,104 +169,133 @@
         </LinearLayout>
 
         <!-- planets -->
-        <View
+        <LinearLayout
+            android:id="@+id/planets_ll"
             android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="160dp"
-            android:background="@color/colorPrimaryLight"
-            />
-        <Button
-            android:id="@+id/planets_butt"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/planets"
-            android:textAppearance="?attr/textAppearanceListItem"
-            />
-        <TextView
-            android:id="@+id/planets_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            tools:text="bob\ncarol\nted\nalice"
-            android:textAppearance="?attr/textAppearanceListItemSecondary"
-            />
+            android:orientation="vertical"
+            >
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="160dp"
+                android:background="@color/colorPrimaryLight"
+                />
+            <Button
+                android:id="@+id/planets_butt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/planets"
+                android:textAppearance="?attr/textAppearanceListItem"
+                />
+            <TextView
+                android:id="@+id/planets_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                tools:text="bob\ncarol\nted\nalice"
+                android:textAppearance="?attr/textAppearanceListItemSecondary"
+                />
+        </LinearLayout>
 
         <!-- starships -->
-        <View
+        <LinearLayout
+            android:id="@+id/starships_ll"
             android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="160dp"
-            android:background="@color/colorPrimaryLight"
-            />
-        <Button
-            android:id="@+id/starships_butt"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/starships"
-            android:textAppearance="?attr/textAppearanceListItem"
-            />
-        <TextView
-            android:id="@+id/starships_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            tools:text="nina\npinta\nsanta maria"
-            android:textAppearance="?attr/textAppearanceListItemSecondary"
-            />
+            android:orientation="vertical"
+            >
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="160dp"
+                android:background="@color/colorPrimaryLight"
+                />
+            <Button
+                android:id="@+id/starships_butt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/starships"
+                android:textAppearance="?attr/textAppearanceListItem"
+                />
+            <TextView
+                android:id="@+id/starships_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                tools:text="nina\npinta\nsanta maria"
+                android:textAppearance="?attr/textAppearanceListItemSecondary"
+                />
+        </LinearLayout>
 
         <!-- vehicles -->
-        <View
+        <LinearLayout
+            android:id="@+id/vehicles_ll"
             android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="160dp"
-            android:background="@color/colorPrimaryLight"
-            />
-        <Button
-            android:id="@+id/vehicles_butt"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/vehicles"
-            android:textAppearance="?attr/textAppearanceListItem"
-            />
-        <TextView
-            android:id="@+id/vehicles_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            tools:text="choochoo\na really big rock\nedsel\npaper airplane"
-            android:textAppearance="?attr/textAppearanceListItemSecondary"
-            />
+            android:orientation="vertical"
+            >
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="160dp"
+                android:background="@color/colorPrimaryLight" />
+
+            <Button
+                android:id="@+id/vehicles_butt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/vehicles"
+                android:textAppearance="?attr/textAppearanceListItem"
+                />
+            <TextView
+                android:id="@+id/vehicles_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                tools:text="choochoo\na really big rock\nedsel\npaper airplane"
+                android:textAppearance="?attr/textAppearanceListItemSecondary"
+                />
+        </LinearLayout>
 
         <!-- species -->
-        <View
+        <LinearLayout
+            android:id="@+id/species_ll"
             android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="160dp"
-            android:background="@color/colorPrimaryLight"
-            />
-        <Button
-            android:id="@+id/species_butt"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/species"
-            android:textAppearance="?attr/textAppearanceListItem"
-            />
-        <TextView
-            android:id="@+id/species_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            tools:text="eloi\nroddy macdowel\nhorta\nvorlon"
-            android:textAppearance="?attr/textAppearanceListItemSecondary"
-            />
+            android:orientation="vertical"
+            >
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="160dp"
+                android:background="@color/colorPrimaryLight"
+                />
+            <Button
+                android:id="@+id/species_butt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/species"
+                android:textAppearance="?attr/textAppearanceListItem"
+                />
+            <TextView
+                android:id="@+id/species_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                tools:text="eloi\nroddy macdowel\nhorta\nvorlon"
+                android:textAppearance="?attr/textAppearanceListItemSecondary"
+                />
+        </LinearLayout>
 
         <!-- created date -->
         <View

@@ -138,11 +138,11 @@ object MovieRequester {
      *
      * @param   charUrl     Where to find this character
      *
-     * @param   charListCallback    Callback to hold this character.  The
+     * @param   characterCallback   Callback to hold this character.  The
      *                              data will be found in the parameter
      *                              which will be null on network error.
      */
-    fun requestCharacter(ctx: Context, charUrl: String, charListCallback: (SWCharacter?) -> Unit) {
+    fun requestCharacter(ctx: Context, charUrl: String, characterCallback: (SWCharacter?) -> Unit) {
         val correctUrl = correctUrl(charUrl)
 
         // setup a volley request
@@ -153,18 +153,40 @@ object MovieRequester {
             // successful response
             Response.Listener { response ->
                 val charData = SWCharacter(response)
-                charListCallback.invoke(charData)
+                characterCallback.invoke(charData)
             },
 
             // error response
             Response.ErrorListener { error ->
                 Log.e(TAG, "Volley error in requestMovieData()")
                 error.printStackTrace()
-                charListCallback.invoke(null)
+                characterCallback.invoke(null)
             })
         mMovieRequestQ?.add(request)
     }
 
+    fun requestPlanet(ctx: Context, planetUrl: String, planetCallback: (SWPlanet?) -> Unit) {
+        val correctUrl = correctUrl(planetUrl)
+
+        // setup a volley request
+        mMovieRequestQ = Volley.newRequestQueue(ctx)
+        val request = JsonObjectRequest(
+            Request.Method.GET, correctUrl, null,
+
+            // successful response
+            Response.Listener { response ->
+                val planetData = SWPlanet(response)
+                planetCallback.invoke(planetData)
+            },
+
+            // error response
+            Response.ErrorListener { error ->
+                Log.e(TAG, "Volley error in requestMovieData()")
+                error.printStackTrace()
+                planetCallback.invoke(null)
+            })
+        mMovieRequestQ?.add(request)
+    }
 
 
     /**
