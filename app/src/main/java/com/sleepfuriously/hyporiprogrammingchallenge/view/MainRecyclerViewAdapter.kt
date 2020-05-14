@@ -29,14 +29,14 @@ class MainRecyclerViewAdapter(
     //  constants
     //-----------------------
 
+    @Suppress("PrivatePropertyName", "unused")
     private val TAG = "MainRecyclerViewAdapter"
 
     //-----------------------
     //  data
     //-----------------------
 
-
-    /** todo */
+    /** click listener for each item in the main list */
     private val onClickListener: View.OnClickListener
 
 
@@ -48,13 +48,11 @@ class MainRecyclerViewAdapter(
         onClickListener = View.OnClickListener { v ->
 
             val movie = v.tag as SWMovie
-//            val item = v.tag as DummyContent.DummyItem
 
             if (mTwoPane) {
                 val fragment = MovieDetailFragment()
                     .apply {
                         arguments = Bundle().apply {
-//                            putString(MovieDetailFragment.ARG_ITEM_ID, movie.title)
                             putString(MovieDetailFragment.MOVIE_URL_KEY, movie.url)
                         }
                     }
@@ -64,7 +62,6 @@ class MainRecyclerViewAdapter(
                     .commit()
             } else {
                 val intent = Intent(v.context, MovieDetailActivity::class.java).apply {
-//                    putExtra(MovieDetailFragment.ARG_MOVIE_ID, movie.title)
                     putExtra(MovieDetailFragment.MOVIE_URL_KEY, movie.url)
                 }
                 v.context.startActivity(intent)

@@ -15,6 +15,7 @@ import com.sleepfuriously.hyporiprogrammingchallenge.model.SWPlanet
 
 object Presenter {
 
+    @Suppress("unused")
     private const val TAG = "Presenter"
 
 

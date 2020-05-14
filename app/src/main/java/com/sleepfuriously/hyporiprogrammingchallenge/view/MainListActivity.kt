@@ -29,7 +29,7 @@ class MainListActivity : AppCompatActivity() {
     //  constants
     //------------------------------
 
-    @Suppress("PrivatePropertyName")
+    @Suppress("PrivatePropertyName", "unused")
     private val TAG = "MainListActivity"
 
     //------------------------------
@@ -85,12 +85,6 @@ class MainListActivity : AppCompatActivity() {
         mProgressBar = findViewById(R.id.progress_bar)
     }
 
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-
-        Log.d(TAG, "onRestoreInstanceState()")
-    }
 
     override fun onResume() {
         super.onResume()

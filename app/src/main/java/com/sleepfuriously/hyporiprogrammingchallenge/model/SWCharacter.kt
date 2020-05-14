@@ -8,6 +8,7 @@ import java.lang.StringBuilder
  * Describes a person
  */
 
+@Suppress("HasPlatformType", "MemberVisibilityCanBePrivate")
 data class SWCharacter (val json: JSONObject) {
 
     val name = json.getString("name")

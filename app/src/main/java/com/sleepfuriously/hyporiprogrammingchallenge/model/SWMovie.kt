@@ -8,6 +8,7 @@ import org.json.JSONObject
  * the equivalent JSON listing.
  */
 
+@Suppress("HasPlatformType")
 data class SWMovie (val json: JSONObject){
 
     val title = json.getString("title")

@@ -73,6 +73,7 @@ class MovieDetailActivity : AppCompatActivity() {
                 .add(R.id.item_detail_container, movieDetailFragment)
                 .commit()
         }
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem) =

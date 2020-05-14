@@ -9,6 +9,7 @@ import java.lang.StringBuilder
  * the equivalent JSON listing.
  */
 
+@Suppress("HasPlatformType", "MemberVisibilityCanBePrivate")
 data class SWPlanet (val json: JSONObject){
 
     val name = json.getString("name")

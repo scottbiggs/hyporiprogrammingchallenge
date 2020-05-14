@@ -77,6 +77,7 @@ class MovieDetailFragment : Fragment() {
     }
 
 
+    @Suppress("RedundantSamConstructor")
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -109,7 +110,7 @@ class MovieDetailFragment : Fragment() {
         run {
             val starshipsButton = rootView.findViewById<Button>(R.id.starships_butt)
             starshipsButton.setOnClickListener(View.OnClickListener {
-                Snackbar.make(rootView, R.string.not_implemented, Snackbar.LENGTH_LONG)
+                Snackbar.make(rootView, R.string.not_implemented, Snackbar.LENGTH_SHORT)
                     .setAction("Action", null).show()
             })
         }
@@ -117,7 +118,7 @@ class MovieDetailFragment : Fragment() {
         run {
             val vehiclesButton = rootView.findViewById<Button>(R.id.vehicles_butt)
             vehiclesButton.setOnClickListener(View.OnClickListener {
-                Snackbar.make(rootView, R.string.not_implemented, Snackbar.LENGTH_LONG)
+                Snackbar.make(rootView, R.string.not_implemented, Snackbar.LENGTH_SHORT)
                     .setAction("Action", null).show()
             })
         }
