@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.sleepfuriously.hyporiprogrammingchallenge.R
 import com.sleepfuriously.hyporiprogrammingchallenge.model.SWMovie
+import com.sleepfuriously.hyporiprogrammingchallenge.view.MovieDetailActivity.Companion.MOVIE_TITLE_KEY
 import kotlinx.android.synthetic.main.main_list_content.view.*
 
 /**
@@ -60,9 +61,12 @@ class MainRecyclerViewAdapter(
                     .beginTransaction()
                     .replace(R.id.item_detail_container, fragment)
                     .commit()
-            } else {
+            }
+
+            else {
                 val intent = Intent(v.context, MovieDetailActivity::class.java).apply {
                     putExtra(MovieDetailFragment.MOVIE_URL_KEY, movie.url)
+                    putExtra(MOVIE_TITLE_KEY, movie.title)
                 }
                 v.context.startActivity(intent)
             }

@@ -22,6 +22,11 @@ class MovieDetailActivity : AppCompatActivity() {
     //  constants
     //-----------------------
 
+    companion object {
+        /** Used to access the title from the caller of this Activity */
+        const val MOVIE_TITLE_KEY = "movie_detail_activity_title_key"
+    }
+
     //-----------------------
     //  data
     //-----------------------
@@ -45,6 +50,7 @@ class MovieDetailActivity : AppCompatActivity() {
 
         // Show the Up button in the action bar.
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = intent.getStringExtra(MOVIE_TITLE_KEY)
 
         mProgressBar = findViewById(R.id.progress_bar)
 
@@ -75,6 +81,7 @@ class MovieDetailActivity : AppCompatActivity() {
         }
 
     }
+
 
     override fun onOptionsItemSelected(item: MenuItem) =
         when (item.itemId) {
