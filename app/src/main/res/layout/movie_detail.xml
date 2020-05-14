@@ -137,28 +137,36 @@
         </LinearLayout>
 
         <!-- characters -->
-        <View
+        <LinearLayout
+            android:id="@+id/characters_ll"
             android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="160dp"
-            android:background="@color/colorPrimaryLight"
-            />
-        <TextView
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/characters"
-            android:textAppearance="?attr/textAppearanceListItem"
-            />
-        <TextView
-            android:id="@+id/characters_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            tools:text="bob\ncarol\nted\nalice"
-            android:textAppearance="?attr/textAppearanceListItemSecondary"
-            />
+            android:orientation="vertical"
+            >
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="160dp"
+                android:background="@color/colorPrimaryLight"
+                />
+            <Button
+                android:id="@+id/characters_butt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/characters"
+                android:textAppearance="?attr/textAppearanceListItem"
+                />
+            <TextView
+                android:id="@+id/characters_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                tools:text="bob\ncarol\nted\nalice"
+                android:textAppearance="?attr/textAppearanceListItemSecondary"
+                />
+        </LinearLayout>
 
         <!-- planets -->
         <View
@@ -169,7 +177,8 @@
             android:layout_marginEnd="160dp"
             android:background="@color/colorPrimaryLight"
             />
-        <TextView
+        <Button
+            android:id="@+id/planets_butt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/planets"
@@ -193,7 +202,8 @@
             android:layout_marginEnd="160dp"
             android:background="@color/colorPrimaryLight"
             />
-        <TextView
+        <Button
+            android:id="@+id/starships_butt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/starships"
@@ -217,7 +227,8 @@
             android:layout_marginEnd="160dp"
             android:background="@color/colorPrimaryLight"
             />
-        <TextView
+        <Button
+            android:id="@+id/vehicles_butt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/vehicles"
@@ -241,7 +252,8 @@
             android:layout_marginEnd="160dp"
             android:background="@color/colorPrimaryLight"
             />
-        <TextView
+        <Button
+            android:id="@+id/species_butt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/species"

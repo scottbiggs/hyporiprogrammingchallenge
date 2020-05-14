@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.sleepfuriously.hyporiprogrammingchallenge.R
 
-import com.sleepfuriously.hyporiprogrammingchallenge.model.Movie
+import com.sleepfuriously.hyporiprogrammingchallenge.model.SWMovie
 import com.sleepfuriously.hyporiprogrammingchallenge.model.MovieRequester
 import com.sleepfuriously.hyporiprogrammingchallenge.presenter.Presenter
 import kotlinx.android.synthetic.main.activity_item_list.*
@@ -106,7 +106,7 @@ class MainListActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         if (!mMoviesFound) {
-            MovieRequester.cancelMovieRequest()
+            MovieRequester.cancelAllDataRequests()
         }
         super.onDestroy()
     }
@@ -116,7 +116,7 @@ class MainListActivity : AppCompatActivity() {
     //  functions
     //------------------------------
 
-    private fun setupRecyclerView(recyclerView: RecyclerView, movieList: List<Movie>) {
+    private fun setupRecyclerView(recyclerView: RecyclerView, movieList: List<SWMovie>) {
         mMainListAdapter = MainRecyclerViewAdapter(this, movieList, mTwoPane)
         recyclerView.adapter = mMainListAdapter
     }

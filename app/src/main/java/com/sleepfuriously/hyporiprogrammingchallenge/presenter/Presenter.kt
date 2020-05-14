@@ -1,10 +1,10 @@
 package com.sleepfuriously.hyporiprogrammingchallenge.presenter
 
 import android.content.Context
-import android.util.Log
-import com.sleepfuriously.hyporiprogrammingchallenge.model.Movie
+import com.sleepfuriously.hyporiprogrammingchallenge.model.SWMovie
 
 import com.sleepfuriously.hyporiprogrammingchallenge.model.MovieRequester
+import com.sleepfuriously.hyporiprogrammingchallenge.model.SWCharacter
 
 /**
  * Intermediary between the model and the view classes.
@@ -18,38 +18,61 @@ object Presenter {
 
 
     /**
-     * Anything that wants a list of [Movie]s should call this.
+     * Anything that wants a list of [SWMovie]s should call this.
      *
      * @param   ctx     Nothing much can happen without this
      *
      * @param   movieListCallback   Callback function to receive the list of movies.
      *                              It will receive the list as a parameter.
      */
-    fun requestMovieList(ctx: Context, movieListCallback: (movieList: List<Movie>?) -> Unit) {
-
+    fun requestMovieList(ctx: Context, movieListCallback: (movieList: List<SWMovie>?) -> Unit) {
         MovieRequester.getMovies(ctx) { movies ->
-            Log.d(TAG, "movies: ${movies?.size}")
             movieListCallback.invoke(movies)
         }
     }
 
+
     /**
-     * Change your mind (or is the context about to die)?  Please
-     * call this function to cancel the request for movies.
+     * Gets the data for a specific movie.
+     *
+     * @param   ctx     always
+     *
+     * @param   movieUrl    The url of the movie's database
+     *
+     * @param   movieDataCallback   Will be called when data is ready.
+     *                              The param holds the data, which will
+     *                              be null if there was a problem.
      */
-    fun cancelMovieListRequest() {
-        MovieRequester.cancelMovieRequest()
-    }
-
-
-    fun requestMovieData(ctx: Context, movieUrl: String, movieDataCallback: (movie: Movie?) -> Unit) {
-
+    fun requestMovieData(ctx: Context, movieUrl: String, movieDataCallback: (movie: SWMovie?) -> Unit) {
         MovieRequester.requestMovieData(ctx, movieUrl) { movie ->
             movieDataCallback.invoke(movie)
         }
     }
 
-    fun cancelMovieDataRequest() {
-        MovieRequester.cancelMovieDataRequest()
+
+    /**
+     * Gets data for a specific character
+     *
+     * @param   ctx     yup
+     *
+     * @param   charUrl Where to find the data
+     *
+     * @param   charDataCallback    Called when data is ready.
+     *                              The param holds the data (holds
+     *                              null on error).
+     */
+    fun requestCharacterData(ctx: Context, charUrl: String, charDataCallback: (charData: SWCharacter?) -> Unit) {
+        MovieRequester.requestCharacter(ctx, charUrl) { character ->
+            charDataCallback.invoke(character)
+        }
+    }
+
+
+    /**
+     * Change your mind (or is the context about to die)?  Please
+     * call this function to cancel the request for movies.
+     */
+    fun cancelAllDataRequests() {
+        MovieRequester.cancelAllDataRequests()
     }
 }

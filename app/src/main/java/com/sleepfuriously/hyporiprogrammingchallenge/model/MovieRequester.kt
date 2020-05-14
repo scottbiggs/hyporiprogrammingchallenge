@@ -22,9 +22,6 @@ object MovieRequester {
     private const val TAG = "MovieRequester"
     private const val MOVIELIST_URL = "https://swapi.dev/api/films/"
 
-    /** prefix for the urls of all the movies.  Append the id to get the actual url */
-//    private const val MOVIE_DATA_PREFIX = "https://swapi.dev/api/films/"
-
 
     //---------------------------------
     //  data
@@ -36,7 +33,7 @@ object MovieRequester {
      *
      * Should be null when not in use.
      */
-    private var movieRequestQ: RequestQueue? = null
+    private var mMovieRequestQ: RequestQueue? = null
 
 
     //---------------------------------
@@ -53,16 +50,16 @@ object MovieRequester {
      *                          holds a list [Movie]s.  If there is an error,
      *                          movieList will be null.
      */
-    fun getMovies(ctx: Context, movieCallback: (movieList: List<Movie>?) -> Unit) {
+    fun getMovies(ctx: Context, movieCallback: (movieList: List<SWMovie>?) -> Unit) {
 
         // setup a volley request
-        movieRequestQ = Volley.newRequestQueue(ctx)
+        mMovieRequestQ = Volley.newRequestQueue(ctx)
         val request = JsonObjectRequest(
             Request.Method.GET, MOVIELIST_URL, null,
 
             // successful response
             Response.Listener { response ->
-                val movieList = mutableListOf<Movie>()
+                val movieList = mutableListOf<SWMovie>()
 
                 // parse the json until we get to the movies (have to dig 1 level).
                 val jsonMovieList = response.getJSONArray("results")
@@ -77,7 +74,7 @@ object MovieRequester {
                 for (i in 0 until length) {
                     try {
                         val jsonObject = jsonMovieList.getJSONObject(i)
-                        movieList.add(Movie(jsonObject))    // return error condition
+                        movieList.add(SWMovie(jsonObject))    // return error condition
                     }
                     catch (e: JSONException) {
                         Log.e(TAG, "Unable to parse json array in getMovies()")
@@ -94,17 +91,7 @@ object MovieRequester {
                 error.printStackTrace()
                 movieCallback.invoke(null)
             })
-        movieRequestQ?.add(request)
-    }
-
-
-    /**
-     * Cancels a request for movies.  Most likely use is for a configuration
-     * change where the requester will be destroyed before the request can
-     * be completed.
-     */
-    fun cancelMovieRequest() {
-        movieRequestQ?.cancelAll(this)
+        mMovieRequestQ?.add(request)
     }
 
 
@@ -119,18 +106,18 @@ object MovieRequester {
      *                              It's [Movie] parameter will hold the data, or be
      *                              null on error.
      */
-    fun requestMovieData(ctx: Context, movieUrl: String, movieDataCallback: (movie: Movie?) -> Unit) {
+    fun requestMovieData(ctx: Context, movieUrl: String, movieDataCallback: (movie: SWMovie?) -> Unit) {
 
-        val actualUrl = correctUrl(movieUrl)
+        val correctUrl = correctUrl(movieUrl)
 
         // setup a volley request
-        movieRequestQ = Volley.newRequestQueue(ctx)
+        mMovieRequestQ = Volley.newRequestQueue(ctx)
         val request = JsonObjectRequest(
-            Request.Method.GET, actualUrl, null,
+            Request.Method.GET, correctUrl, null,
 
             // successful response
             Response.Listener { response ->
-                val movieData = Movie(response)
+                val movieData = SWMovie(response)
                 movieDataCallback.invoke(movieData)
             },
 
@@ -140,15 +127,53 @@ object MovieRequester {
                 error.printStackTrace()
                 movieDataCallback.invoke(null)
             })
-        movieRequestQ?.add(request)
+        mMovieRequestQ?.add(request)
     }
 
 
     /**
-     * Cancels a request for movie data.
+     * Returns the data for a character.
+     *
+     * @param   ctx     sigh
+     *
+     * @param   charUrl     Where to find this character
+     *
+     * @param   charListCallback    Callback to hold this character.  The
+     *                              data will be found in the parameter
+     *                              which will be null on network error.
      */
-    fun cancelMovieDataRequest() {
-        movieRequestQ?.cancelAll(this)
+    fun requestCharacter(ctx: Context, charUrl: String, charListCallback: (SWCharacter?) -> Unit) {
+        val correctUrl = correctUrl(charUrl)
+
+        // setup a volley request
+        mMovieRequestQ = Volley.newRequestQueue(ctx)
+        val request = JsonObjectRequest(
+            Request.Method.GET, correctUrl, null,
+
+            // successful response
+            Response.Listener { response ->
+                val charData = SWCharacter(response)
+                charListCallback.invoke(charData)
+            },
+
+            // error response
+            Response.ErrorListener { error ->
+                Log.e(TAG, "Volley error in requestMovieData()")
+                error.printStackTrace()
+                charListCallback.invoke(null)
+            })
+        mMovieRequestQ?.add(request)
+    }
+
+
+
+    /**
+     * Cancels all data requests.  Most likely use is for a configuration
+     * change where the requester will be destroyed before the request can
+     * be completed.
+     */
+    fun cancelAllDataRequests() {
+        mMovieRequestQ?.cancelAll(this)
     }
 
 

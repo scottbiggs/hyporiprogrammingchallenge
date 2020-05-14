@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.sleepfuriously.hyporiprogrammingchallenge.R
-import com.sleepfuriously.hyporiprogrammingchallenge.model.Movie
+import com.sleepfuriously.hyporiprogrammingchallenge.model.SWMovie
 import kotlinx.android.synthetic.main.main_list_content.view.*
 
 /**
@@ -18,7 +18,7 @@ class MainRecyclerViewAdapter(
     private val mParentActivity: MainListActivity,
 
     /** Holds the data to display */
-    private val mMovieList: List<Movie>,
+    private val mMovieList: List<SWMovie>,
 //    private val values: List<DummyContent.DummyItem>,
 
     private val mTwoPane: Boolean
@@ -47,7 +47,7 @@ class MainRecyclerViewAdapter(
     init {
         onClickListener = View.OnClickListener { v ->
 
-            val movie = v.tag as Movie
+            val movie = v.tag as SWMovie
 //            val item = v.tag as DummyContent.DummyItem
 
             if (mTwoPane) {
@@ -55,7 +55,7 @@ class MainRecyclerViewAdapter(
                     .apply {
                         arguments = Bundle().apply {
 //                            putString(MovieDetailFragment.ARG_ITEM_ID, movie.title)
-                            putString(MovieDetailFragment.ARG_MOVIE_URL, movie.url)
+                            putString(MovieDetailFragment.MOVIE_URL_KEY, movie.url)
                         }
                     }
                 mParentActivity.supportFragmentManager
@@ -65,7 +65,7 @@ class MainRecyclerViewAdapter(
             } else {
                 val intent = Intent(v.context, MovieDetailActivity::class.java).apply {
 //                    putExtra(MovieDetailFragment.ARG_MOVIE_ID, movie.title)
-                    putExtra(MovieDetailFragment.ARG_MOVIE_URL, movie.url)
+                    putExtra(MovieDetailFragment.MOVIE_URL_KEY, movie.url)
                 }
                 v.context.startActivity(intent)
             }

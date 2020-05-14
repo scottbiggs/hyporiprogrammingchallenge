@@ -8,7 +8,7 @@ import org.json.JSONObject
  * the equivalent JSON listing.
  */
 
-data class Movie (val json: JSONObject){
+data class SWMovie (val json: JSONObject){
 
     val title = json.getString("title")
     val openingCrawl = json.getString("opening_crawl")

@@ -60,12 +60,12 @@ class MovieDetailActivity : AppCompatActivity() {
         //
         if (savedInstanceState == null) {
 
-            val movieUrl = intent.getStringExtra(MovieDetailFragment.ARG_MOVIE_URL)
+            val movieUrl = intent.getStringExtra(MovieDetailFragment.MOVIE_URL_KEY)
 
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             val bundle = Bundle()
-            bundle.putString(MovieDetailFragment.ARG_MOVIE_URL, movieUrl)
+            bundle.putString(MovieDetailFragment.MOVIE_URL_KEY, movieUrl)
 
             val movieDetailFragment = MovieDetailFragment()
             movieDetailFragment.arguments = bundle
