@@ -2,6 +2,20 @@
     <string name="app_name">Hypori Programming Challenge</string>
     <string name="title_movie_detail">Movie Detail</string>
 
+    <!-- movie fragment -->
+    <string name="director">director</string>
+    <string name="producer">producer</string>
+    <string name="created_date">created date</string>
+    <string name="edited_date">edited date</string>
+    <string name="release_date">release date</string>
+
+    <string name="characters">characters</string>
+    <string name="planets">planets</string>
+    <string name="starships">starships</string>
+    <string name="vehicles">vehicles</string>
+    <string name="species">species</string>
+
     <!-- errors -->
     <string name="internet_probs">Problems getting data from server. Is your internet turned on\?</string>
+
 </resources>

@@ -18,6 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_margin="8dp"
         >
 
         <TextView
@@ -40,9 +41,280 @@
             android:layout_marginStart="@dimen/text_margin"
             android:layout_marginEnd="@dimen/text_margin"
             tools:text="The opening crawl will appear here.  It'll be truncated, preferably with some sort of elipsis. If not, then I guess I'll have to live with it."
-            android:textAppearance="?attr/textAppearanceListItemSecondary" />
+            android:textAppearance="?attr/textAppearanceListItemSecondary"
+            />
+
+        <!-- director -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="160dp"
+            android:background="@color/colorPrimaryLight"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/director"
+                android:textAppearance="?attr/textAppearanceListItem"
+                />
+            <TextView
+                android:id="@+id/director_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                tools:text="alan smithy"
+                android:textAppearance="?attr/textAppearanceListItemSecondary"
+                />
+        </LinearLayout>
+
+        <!-- producer -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="160dp"
+            android:background="@color/colorPrimaryLight"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/producer"
+                android:textAppearance="?attr/textAppearanceListItem"
+                />
+            <TextView
+                android:id="@+id/producer_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                tools:text="my mother"
+                android:textAppearance="?attr/textAppearanceListItemSecondary"
+                />
+        </LinearLayout>
 
 
+        <!-- release date -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="160dp"
+            android:background="@color/colorPrimaryLight"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/release_date"
+                android:textAppearance="?attr/textAppearanceListItem"
+                />
+            <TextView
+                android:id="@+id/release_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                tools:text="the near future"
+                android:textAppearance="?attr/textAppearanceListItemSecondary"
+                />
+        </LinearLayout>
+
+        <!-- characters -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="160dp"
+            android:background="@color/colorPrimaryLight"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/characters"
+            android:textAppearance="?attr/textAppearanceListItem"
+            />
+        <TextView
+            android:id="@+id/characters_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            tools:text="bob\ncarol\nted\nalice"
+            android:textAppearance="?attr/textAppearanceListItemSecondary"
+            />
+
+        <!-- planets -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="160dp"
+            android:background="@color/colorPrimaryLight"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/planets"
+            android:textAppearance="?attr/textAppearanceListItem"
+            />
+        <TextView
+            android:id="@+id/planets_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            tools:text="bob\ncarol\nted\nalice"
+            android:textAppearance="?attr/textAppearanceListItemSecondary"
+            />
+
+        <!-- starships -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="160dp"
+            android:background="@color/colorPrimaryLight"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/starships"
+            android:textAppearance="?attr/textAppearanceListItem"
+            />
+        <TextView
+            android:id="@+id/starships_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            tools:text="nina\npinta\nsanta maria"
+            android:textAppearance="?attr/textAppearanceListItemSecondary"
+            />
+
+        <!-- vehicles -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="160dp"
+            android:background="@color/colorPrimaryLight"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/vehicles"
+            android:textAppearance="?attr/textAppearanceListItem"
+            />
+        <TextView
+            android:id="@+id/vehicles_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            tools:text="choochoo\na really big rock\nedsel\npaper airplane"
+            android:textAppearance="?attr/textAppearanceListItemSecondary"
+            />
+
+        <!-- species -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="160dp"
+            android:background="@color/colorPrimaryLight"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/species"
+            android:textAppearance="?attr/textAppearanceListItem"
+            />
+        <TextView
+            android:id="@+id/species_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            tools:text="eloi\nroddy macdowel\nhorta\nvorlon"
+            android:textAppearance="?attr/textAppearanceListItemSecondary"
+            />
+
+        <!-- created date -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="160dp"
+            android:background="@color/colorPrimaryLight"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/created_date"
+                android:textAppearance="?attr/textAppearanceListItem"
+                />
+            <TextView
+                android:id="@+id/create_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                tools:text="1776"
+                android:textAppearance="?attr/textAppearanceListItemSecondary"
+                />
+        </LinearLayout>
+
+
+        <!-- edited date -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="160dp"
+            android:background="@color/colorPrimaryLight"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/edited_date"
+                android:textAppearance="?attr/textAppearanceListItem"
+                />
+            <TextView
+                android:id="@+id/edited_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                tools:text="1942"
+                android:textAppearance="?attr/textAppearanceListItemSecondary"
+                />
+        </LinearLayout>
 
     </LinearLayout>
 

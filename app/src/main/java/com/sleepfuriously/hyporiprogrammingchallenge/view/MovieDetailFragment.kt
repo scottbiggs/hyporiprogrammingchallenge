@@ -13,6 +13,8 @@ import com.sleepfuriously.hyporiprogrammingchallenge.presenter.Presenter
 import kotlinx.android.synthetic.main.activity_item_detail.*
 import kotlinx.android.synthetic.main.main_list.*
 import kotlinx.android.synthetic.main.movie_detail.view.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * A fragment representing detail of a single movie.
@@ -77,8 +79,6 @@ class MovieDetailFragment : Fragment() {
 
         val rootView = inflater.inflate(R.layout.movie_detail, container, false)
 
-        rootView.movie_detail_sv.title_tv.text = "test this is just a test"
-
         // grab the context.  Sorry about the unnecessary checks, but this is KOTLIN!
         val ctx = context ?: return rootView
         val url = mMovieUrl ?: return rootView
@@ -87,7 +87,24 @@ class MovieDetailFragment : Fragment() {
         // request data for this movie
         Presenter.requestMovieData(ctx, url) { movieData ->
             if (movieData != null) {
-                rootView.title_tv.text = movieData?.title
+                rootView.title_tv.text = movieData.title
+                rootView.crawl_tv.text = movieData.openingCrawl
+                rootView.director_tv.text = movieData.director
+                rootView.producer_tv.text = movieData.producer
+
+                rootView.release_tv.text = movieData.dateReleased
+                rootView.create_tv.text =movieData.dateCreated
+                rootView.edited_tv.text = movieData.dateEdited
+
+                // todo characters
+
+                // todo planets
+
+                // todo starships
+
+                // todo vehicles
+
+                // todo species
             }
             else {
                 Log.e(TAG, "error getting movie data")
