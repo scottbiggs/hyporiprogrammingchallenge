@@ -95,7 +95,7 @@ class MovieDetailFragment : Fragment() {
         run {
             val characterButton = rootView.findViewById<Button>(R.id.characters_butt)
             characterButton.setOnClickListener(View.OnClickListener {
-                grabCharacters(ctx, characterButton.parent as ViewGroup)
+                grabCharacters(ctx, characterButton, characterButton.parent as ViewGroup)
             })
         }
 
@@ -103,7 +103,7 @@ class MovieDetailFragment : Fragment() {
         run {
             val planetButton = rootView.findViewById<Button>(R.id.planets_butt)
             planetButton.setOnClickListener(View.OnClickListener {
-                grabPlanets(ctx, planetButton.parent as ViewGroup)
+                grabPlanets(ctx, planetButton, planetButton.parent as ViewGroup)
             })
         }
 
@@ -233,9 +233,11 @@ class MovieDetailFragment : Fragment() {
      *
      * @param   ctx     check
      *
+     * @param   button  the button that was pressed
+     *
      * @param   parent  The viewGroup that this belongs to
      */
-    private fun grabCharacters(ctx: Context, parent: ViewGroup) {
+    private fun grabCharacters(ctx: Context, button: Button, parent: ViewGroup) {
         val urlList = arrayListOf<String>()
 
         // make character list
@@ -266,6 +268,7 @@ class MovieDetailFragment : Fragment() {
                     countdown--
                     if (countdown == 0) {
                         turnOffWaitingUI()
+                        button.isEnabled = false    // way counter-intuitive!
                     }
                 }
                 else {
@@ -289,9 +292,11 @@ class MovieDetailFragment : Fragment() {
      *
      * @param   ctx     check
      *
+     * @param   button  the button that was pressed
+     *
      * @param   parent  The viewGroup that this belongs to
      */
-    private fun grabPlanets(ctx: Context, parent: ViewGroup) {
+    private fun grabPlanets(ctx: Context, button: Button, parent: ViewGroup) {
         val urlList = arrayListOf<String>()
 
         for (i in 0 until mMovieData?.planets?.length()!!) {     // ew!! I'm so glad Kotlin doesn't have so much boilerplate code!
@@ -322,6 +327,7 @@ class MovieDetailFragment : Fragment() {
                     countdown--
                     if (countdown == 0) {
                         turnOffWaitingUI()
+                        button.isEnabled = false    // way counter-intuitive!
                     }
                 }
                 else {

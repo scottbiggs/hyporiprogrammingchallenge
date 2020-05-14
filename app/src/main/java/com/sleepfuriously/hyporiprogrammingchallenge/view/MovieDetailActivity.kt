@@ -2,7 +2,6 @@ package com.sleepfuriously.hyporiprogrammingchallenge.view
 
 import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.MenuItem
 import android.view.View
