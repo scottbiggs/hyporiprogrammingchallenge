@@ -5,6 +5,8 @@ import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.MenuItem
+import android.view.View
+import android.widget.ProgressBar
 import com.sleepfuriously.hyporiprogrammingchallenge.R
 import kotlinx.android.synthetic.main.activity_item_detail.*
 
@@ -15,6 +17,21 @@ import kotlinx.android.synthetic.main.activity_item_detail.*
  * in a [MainListActivity].
  */
 class MovieDetailActivity : AppCompatActivity() {
+
+    //-----------------------
+    //  constants
+    //-----------------------
+
+    //-----------------------
+    //  data
+    //-----------------------
+
+    /** display for to users that app is waiting on something */
+    private lateinit var mProgressBar: ProgressBar
+
+    //-----------------------
+    //  functions
+    //-----------------------
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +47,8 @@ class MovieDetailActivity : AppCompatActivity() {
         // Show the Up button in the action bar.
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        mProgressBar = findViewById(R.id.progress_bar)
+
         // savedInstanceState is non-null when there is fragment state
         // saved from previous configurations of this activity
         // (e.g. when rotating the screen from portrait to landscape).
@@ -41,31 +60,15 @@ class MovieDetailActivity : AppCompatActivity() {
         //
         if (savedInstanceState == null) {
 
-//            val movieId = intent.getIntExtra(MovieDetailFragment.ARG_MOVIE_ID, 0)
             val movieUrl = intent.getStringExtra(MovieDetailFragment.ARG_MOVIE_URL)
 
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             val bundle = Bundle()
-//            bundle.putInt(MovieDetailFragment.ARG_MOVIE_ID, movieId)
             bundle.putString(MovieDetailFragment.ARG_MOVIE_URL, movieUrl)
 
             val movieDetailFragment = MovieDetailFragment()
             movieDetailFragment.arguments = bundle
-
-
-//            val fragment = MovieDetailFragment().apply {
-//                arguments = Bundle().apply {
-//                    putString(
-//                        MovieDetailFragment.ARG_ITEM_ID,
-//                        intent.getStringExtra(MovieDetailFragment.ARG_ITEM_ID)
-//                    )
-//                    putInt(
-//                        MovieDetailFragment.ARG_MOVIE_ID,
-//                        intent.getIntExtra(MovieDetailFragment.ARG_MOVIE_ID, 1)
-//                    )
-//                }
-//            }
 
             supportFragmentManager.beginTransaction()
                 .add(R.id.item_detail_container, movieDetailFragment)
@@ -87,4 +90,22 @@ class MovieDetailActivity : AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+
+
+    /**
+     * preconditions:
+     *      mProgressBar     setup and ready to go
+     */
+    public fun turnOnWaitingUI() {
+        mProgressBar.visibility = View.VISIBLE
+    }
+
+    /**
+     * preconditions:
+     *      mProgressBar     setup and ready to go
+     */
+    public fun turnOffWaitingUI() {
+        mProgressBar.visibility = View.GONE
+    }
+
 }

@@ -121,16 +121,7 @@ object MovieRequester {
      */
     fun requestMovieData(ctx: Context, movieUrl: String, movieDataCallback: (movie: Movie?) -> Unit) {
 
-        // HACK!!!
-        // Many urls use http:// prefixes, which have all been moved to the https://
-        // equivalents.  This creates a 301 (redirect) error that Volley doesn't
-        // handle correctly.
-        //
-        // So I check and correct the prefix.
-        var actualUrl = movieUrl
-        if (!movieUrl.contains("https", true)) {
-            actualUrl = movieUrl.replace("http:", "https:")
-        }
+        val actualUrl = correctUrl(movieUrl)
 
         // setup a volley request
         movieRequestQ = Volley.newRequestQueue(ctx)
@@ -158,6 +149,25 @@ object MovieRequester {
      */
     fun cancelMovieDataRequest() {
         movieRequestQ?.cancelAll(this)
+    }
+
+
+    /**
+     * Returns a url with the correct prefix.  If it already is correct, returns
+     * the original.
+     */
+    private fun correctUrl(origUrl: String): String {
+        // HACK!!!
+        // Many urls use http:// prefixes, which have all been moved to the https://
+        // equivalents.  This creates a 301 (redirect) error that Volley doesn't
+        // handle correctly.
+        //
+        // So I check and correct the prefix.
+        var correctedUrl = origUrl
+        if (!origUrl.contains("https", true)) {
+            correctedUrl = origUrl.replace("http:", "https:")
+        }
+        return correctedUrl
     }
 
 }

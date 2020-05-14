@@ -57,20 +57,20 @@ class MovieDetailFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-//        mMovieID = arguments?.getInt(ARG_MOVIE_ID)
         mMovieUrl = arguments?.getString(ARG_MOVIE_URL)
 
         // todo: remove this--it doesn't do anything (I think)
-        arguments?.let {
-            if (it.containsKey(ARG_ITEM_ID)) {
-                // Load the dummy content specified by the fragment
-                // arguments. In a real-world scenario, use a Loader
-                // to load content from a content provider.
-                item = DummyContent.ITEM_MAP[it.getString(ARG_ITEM_ID)]
-                activity?.toolbar_layout?.title = item?.content
-            }
-        }
+//        arguments?.let {
+//            if (it.containsKey(ARG_ITEM_ID)) {
+//                // Load the dummy content specified by the fragment
+//                // arguments. In a real-world scenario, use a Loader
+//                // to load content from a content provider.
+//                item = DummyContent.ITEM_MAP[it.getString(ARG_ITEM_ID)]
+//                activity?.toolbar_layout?.title = item?.content
+//            }
+//        }
     }
+
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -83,8 +83,8 @@ class MovieDetailFragment : Fragment() {
         val ctx = context ?: return rootView
         val url = mMovieUrl ?: return rootView
 
-
         // request data for this movie
+        turnOnWaitingUI()
         Presenter.requestMovieData(ctx, url) { movieData ->
             if (movieData != null) {
                 rootView.title_tv.text = movieData.title
@@ -95,6 +95,8 @@ class MovieDetailFragment : Fragment() {
                 rootView.release_tv.text = movieData.dateReleased
                 rootView.create_tv.text =movieData.dateCreated
                 rootView.edited_tv.text = movieData.dateEdited
+
+                turnOffWaitingUI()
 
                 // todo characters
 
@@ -107,6 +109,7 @@ class MovieDetailFragment : Fragment() {
                 // todo species
             }
             else {
+                turnOffWaitingUI()
                 Log.e(TAG, "error getting movie data")
                 Snackbar.make(rootView, R.string.internet_probs, Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
@@ -115,6 +118,44 @@ class MovieDetailFragment : Fragment() {
 
         return rootView
     }
+
+
+    /**
+     * Turns on the progressbar--should work no matter which activity we're in
+     */
+    private fun turnOnWaitingUI() {
+        Log.d(TAG, "turn waiting ON")
+
+        activity ?: return      // kotlin verbosity
+
+        if (activity is MainListActivity) {
+            val parentActivity = activity as MainListActivity
+            parentActivity.turnOnWaitingUI()
+        }
+        else {
+            val parentActivity = activity as MovieDetailActivity
+            parentActivity.turnOnWaitingUI()
+        }
+    }
+
+    /**
+     * Turns off the progress bar
+     */
+    private fun turnOffWaitingUI() {
+        Log.d(TAG, "turn waiting OFF")
+
+        activity ?: return      // kotlin verbosity
+
+        if (activity is MainListActivity) {
+            val parentActivity = activity as MainListActivity
+            parentActivity.turnOffWaitingUI()
+        }
+        else {
+            val parentActivity = activity as MovieDetailActivity
+            parentActivity.turnOffWaitingUI()
+        }
+    }
+
 
     companion object {
         /**

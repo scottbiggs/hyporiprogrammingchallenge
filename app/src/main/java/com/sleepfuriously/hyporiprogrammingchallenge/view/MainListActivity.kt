@@ -150,7 +150,7 @@ class MainListActivity : AppCompatActivity() {
      * preconditions:
      *      mProgressBar     setup and ready to go
      */
-    private fun turnOnWaitingUI() {
+    public fun turnOnWaitingUI() {
         mProgressBar.visibility = View.VISIBLE
     }
 
@@ -158,7 +158,7 @@ class MainListActivity : AppCompatActivity() {
      * preconditions:
      *      mProgressBar     setup and ready to go
      */
-    private fun turnOffWaitingUI() {
+    public fun turnOffWaitingUI() {
         mProgressBar.visibility = View.GONE
     }
 
