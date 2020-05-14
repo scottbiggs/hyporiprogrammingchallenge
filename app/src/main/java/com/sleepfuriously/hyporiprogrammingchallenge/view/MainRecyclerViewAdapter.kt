@@ -1,11 +1,13 @@
 package com.sleepfuriously.hyporiprogrammingchallenge.view
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.sleepfuriously.hyporiprogrammingchallenge.R
 import com.sleepfuriously.hyporiprogrammingchallenge.model.SWMovie
@@ -40,17 +42,36 @@ class MainRecyclerViewAdapter(
     /** click listener for each item in the main list */
     private val onClickListener: View.OnClickListener
 
+    /** The currently selected item in the RV--needed for highlighting. */
+    private var mSelected = -1
+
+    /** Normal background color for an Album list item  */
+    private var mNormalBackground = -1
+
+    /** The color to use for an Album list item that is currently selected  */
+    private var mHighlightBackground = -1
+
 
     //-----------------------
     //  functions
     //-----------------------
 
     init {
+        // first, setup the click listener
         onClickListener = View.OnClickListener { v ->
 
-            val movie = v.tag as SWMovie
+            val pos = v.tag as Int
+            val movie = mMovieList[pos]
 
             if (mTwoPane) {
+
+                // highlight the current button
+                // redraw the selection
+                notifyItemChanged(mSelected)
+                notifyItemChanged(pos)
+                mSelected = pos
+
+
                 val fragment = MovieDetailFragment()
                     .apply {
                         arguments = Bundle().apply {
@@ -71,12 +92,27 @@ class MainRecyclerViewAdapter(
                 v.context.startActivity(intent)
             }
         }
+
+
+        // Calculate the colors to avoid slowing down onBindViewHolder
+        mHighlightBackground = mParentActivity.resources.getColor(R.color.highlightBackgroundColor)
+
+        // the default background color of a cardview is a little trickier
+//        val cardView: CardView = mParentActivity.findViewById(R.id.cardview_cv)
+//        mNormalBackground = cardView.cardBackgroundColor.defaultColor
     }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.main_list_content, parent, false)
+
+        // may need to set the normal background color
+        if (mNormalBackground == -1) {
+            val cardView: CardView = view.findViewById(R.id.cardview_cv)
+            mNormalBackground = cardView.cardBackgroundColor.defaultColor
+        }
+
         return ViewHolder(view)
     }
 
@@ -88,9 +124,17 @@ class MainRecyclerViewAdapter(
         holder.crawlTv.text = movieData.openingCrawl
 
         with(holder.itemView) {
-            tag = movieData
+            tag = position
             setOnClickListener(onClickListener)
         }
+
+        // Possibly highlight this as a selected item
+        if (position == mSelected) {
+            holder.cardView.setBackgroundColor(mHighlightBackground)
+        } else {
+            holder.cardView.setBackgroundColor(mNormalBackground)
+        }
+
     }
 
 
@@ -102,6 +146,7 @@ class MainRecyclerViewAdapter(
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     inner class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
+        val cardView: CardView = v.cardview_cv
         val titleTv: TextView = v.title_tv
         val crawlTv: TextView = v.crawl_tv
     }

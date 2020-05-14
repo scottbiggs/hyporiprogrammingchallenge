@@ -4,4 +4,6 @@
     <color name="colorPrimaryLight">#C2949E</color>
     <color name="colorPrimaryDark">#6e0812</color>
     <color name="colorAccent">#6c6c6c</color>
+
+    <color name="highlightBackgroundColor">#F7F298</color>
 </resources>
